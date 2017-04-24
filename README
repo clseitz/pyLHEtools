@@ -1,4 +1,6 @@
 The code doesn't do much yet, but read in the DM LHE file with weights (no plots yet, no propper tree written out)
 
 to run:
-python readDM.py LHEFILE.lhe OUPUT.root
+python readDM.py LHEFILE.lhe (OUTOUT.root)
+
+(if no OUTOUT.root file is given, then a root file LHEFILE.root will be produced)
