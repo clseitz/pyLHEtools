@@ -14,7 +14,10 @@ class LHEevent():
             return 0
         # read the model
         for i in range(2,len(lheLines)-3):
-            if "wgt" in lheLines[i]:
+            #remove stuff that follows after event info, unless it is a proper weight block
+            if "<mgr" in lheLines[i] or "<scales" in lheLines[i]:
+                break
+            elif "wgt" in lheLines[i]:
                 self.Weights.append(self.readWeights(lheLines[i]))
             else:
                 self.Particles.append(self.readParticle(lheLines[i]))
