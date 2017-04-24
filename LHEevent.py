@@ -30,7 +30,7 @@ class LHEevent():
             if entry != "": dataINgood.append(entry)
         
         if len(dataINgood) > 10:
-            return {'ID': int(dataINgood[0]),
+            return {'PdgID': int(dataINgood[0]),
                     'mIdx': int(dataINgood[2])-1,
                     'Px' : float(dataINgood[6]),
                     'Py' : float(dataINgood[7]),
