@@ -1,12 +1,12 @@
 import ROOT 
 ROOT.gROOT.SetBatch() 
+import glob, os
 
-legenden = ['g=1','g=0.6','g=0.7','g=0.8']
 title = 'Pt'
 xMin = 0
-xMax = 500
-nBins = 20
-treePath = './rootFiles'
+xMax = 700
+nBins = 10
+treePath = '/nfs/dust/cms/user/clseitz/DarkMatterMC/LHERootFiles/rootFiles'
 histoPath= './'
 
 treeName = 'events'
@@ -14,14 +14,14 @@ treeName = 'events'
 plotPath = './'
 
 #files
-jobs = ['DMScalar_Mphi50_Mchi1_g1','DMScalar_Mphi50_Mchi1_g0p6','DMScalar_Mphi50_Mchi1_g0p7','DMScalar_Mphi50_Mchi1_g0p8']
+
 
 #selection
 treeCut = 'PdgID==9100000'
 #treeCut = 'ID==6 || ID==-6'
 
 treeVar = 'Pt'
-xTitle = 'p_{T} (GeV)'
+xTitle = 'Mediator p_{T} (GeV)'
 yTitle = 'Normalized events'
 colors = [2,8,4,ROOT.kMagenta+2]
 num = 0
@@ -55,7 +55,7 @@ def getHisto(job):
 
 
 def getHistoFromTree(job):
-        global num
+	global num
 
         hTree = ROOT.TH1F(job,job,nBins,xMin,xMax)
         hTree.Sumw2()
@@ -64,7 +64,7 @@ def getHistoFromTree(job):
         hTree = ROOT.gDirectory.Get(job)
 	hTree.Sumw2()
 	hTree.SetDirectory(0)
-
+	hTree.SetTitle(job)
         nEvents = hTree.Integral()
 
         if nEvents != 0:
@@ -72,7 +72,7 @@ def getHistoFromTree(job):
 	    num = num+1
 	return hTree
             
-def makePlots():
+def makePlots(jobs, variable, legends):
 	
         ROOT.gROOT.SetStyle("Plain")
 
@@ -103,8 +103,8 @@ def makePlots():
 	pad1.SetTicky(0)    
 	pad1.Draw()    
 	pad1.cd()
-
-        #c.SetLogy()
+	pad1.SetLogy() 
+	
         allStack = ROOT.THStack(title,title)
 	histos = []
 	for job in jobs:
@@ -119,6 +119,7 @@ def makePlots():
 	l.SetBorderSize(0)
 	l.SetTextSize(0.04)
 
+	l.SetHeader('Model: ' + variable)
 	for i in range(0,len(histos)):
             histos[i].SetFillStyle(0)
             histos[i].SetLineColor(colors[i])
@@ -126,7 +127,7 @@ def makePlots():
 	    if i !=0: histos[i].SetLineStyle(ROOT.kDashed)
 	    histos[i].Sumw2() 
             allStack.Add(histos[i])
-            l.AddEntry(histos[i],legenden[i],'l')
+            l.AddEntry(histos[i],legends[i],'l')
 
 	allStack.Add(histos[0])
 
@@ -148,6 +149,9 @@ def makePlots():
 	allStack.GetHistogram().GetYaxis().SetTitleOffset(1.2)
 
         allStack.GetXaxis().SetRangeUser(xMin,xMax)
+        allStack.SetMinimum(0.001)
+        allStack.SetMaximum(2)
+
         l.Draw()
 
 	#ratio plot
@@ -157,78 +161,92 @@ def makePlots():
 	pad2.SetBottomMargin(0.35)#0.45        
 	pad2.SetLeftMargin(0.12)        
 	pad2.SetRightMargin(0.05)        
-
 	c.cd()        
 
 	pad2.Draw()        
 	pad2.cd()        
 
-	ratio = []
-	print "len ", len(histos)
-	for i in range(0,len(histos)-1):
-		print "i ", i
-		ratio.append(histos[0].Clone("ratio"))
-	print " ratio ", ratio
-
-	#for i in range(1,len(histos)):
-	for i in range(0,len(histos)-1):
-		print " ratio ", ratio
-		print " ratio[0] ", ratio[0]
-		print " ratio[1] ", ratio[1]
-		print " ratio[2] ", ratio[2]
-	#ratio[i].append(histos[0].Clone("ratio"))
-		ratio[i].SetLineColor(colors[i+1])        
-		ratio[i].Sumw2()        
-		ratio[i].SetStats(0)        
-
-		print "i ", i
-		denom = histos[i].Clone("denom")        
-		denom.Sumw2()        
+	ratios =[]
+	baseline = histos[0].Clone("baseline")
+	baseline.SetLineColor(0)
+	baseline.Draw("histe")
+	baseline.SetStats(0)
+	for i,h in enumerate(histos):
+		ratio = h.Clone()
+		print baseline.GetTitle(), ratio.GetTitle()
+		print i
+		ratio.Divide(baseline)
+		ratio.SetMarkerStyle(20)        
+		ratio.SetMarkerColor(colors[i])        
+		ratio.SetMarkerSize(0.6)        
+		ratio.SetStats(0)
+		if i > 0: ratios.append(ratio)
 		
-		ratio[i].Divide(denom)        
-		ratio[i].SetMarkerStyle(20)        
-		ratio[i].SetMarkerColor(colors[i+1])        
-		ratio[i].SetMarkerSize(0.6)        
-
-		if i==0: ratio[i].Draw("PE0,X0") #epx0        
-		else: ratio[i].Draw("PE0,X0same")
 		
 	f1 = ROOT.TF1("myfunc","[0]",xMin,xMax);        
-	f1.SetLineColor(ROOT.kGray+3)        
-	f1.SetLineStyle(ROOT.kDashed)        
+	f1.SetLineColor(ROOT.kGray+3)
+	f1.SetLineWidth(1)
 	f1.SetParameter(0,1);        
 	f1.Draw("same")
-	for i in range(0,len(histos)-1):
-		ratio[i].Draw("PE0,X0same")
+	for ratio in ratios:
+		ratio.Draw("histesame")
 		
-	ratio[0].SetTitle("")   
-	ratio[0].Sumw2()        
-	ratio[0].GetXaxis().SetTitle(xTitle)        
-	ratio[0].GetYaxis().SetTitle("g=1 / g")        
-	ratio[0].GetYaxis().SetNdivisions(503)        
+	baseline.SetTitle("")   
+	baseline.Sumw2()        
+	baseline.GetXaxis().SetTitle(xTitle)        
+	baseline.GetYaxis().SetTitle("g = x / g = 2")        
+	baseline.GetYaxis().SetNdivisions(503)        
 	
-	ratio[0].GetXaxis().SetLabelFont(42);        
-	ratio[0].GetYaxis().SetLabelFont(42);        
-	ratio[0].GetXaxis().SetLabelSize(0.11);        
-	ratio[0].GetYaxis().SetLabelSize(0.11);        
-	ratio[0].GetXaxis().SetLabelOffset(0.04)        
-	ratio[0].GetYaxis().SetLabelOffset(0.02)
+	baseline.GetXaxis().SetLabelFont(42);        
+	baseline.GetYaxis().SetLabelFont(42);        
+	baseline.GetXaxis().SetLabelSize(0.11);        
+	baseline.GetYaxis().SetLabelSize(0.11);        
+	baseline.GetXaxis().SetLabelOffset(0.04)        
+	baseline.GetYaxis().SetLabelOffset(0.02)
 	
-	ratio[0].GetXaxis().SetTitleFont(42);        
-	ratio[0].GetYaxis().SetTitleFont(42);        
-	ratio[0].GetXaxis().SetTitleOffset(1.45);        
-	ratio[0].GetYaxis().SetTitleOffset(0.5);#0.31 ##0.29        
-	ratio[0].GetXaxis().SetTitleSize(0.12);        
-	ratio[0].GetYaxis().SetTitleSize(0.12);        
+	baseline.GetXaxis().SetTitleFont(42);        
+	baseline.GetYaxis().SetTitleFont(42);        
+	baseline.GetXaxis().SetTitleOffset(1.45);        
+	baseline.GetYaxis().SetTitleOffset(0.5);#0.31 ##0.29        
+	baseline.GetXaxis().SetTitleSize(0.12);        
+	baseline.GetYaxis().SetTitleSize(0.12);        
 	
-	ratio[0].GetYaxis().SetRangeUser(0.5,1.5);#-2.3,3.7        
+	baseline.GetYaxis().SetRangeUser(0.5,1.5);#-2.3,3.7        
 
 	
 
 		
-        name_pdf = '%s/%s.pdf' %(plotPath,title)
-        name_root = '%s/%s.root' %(plotPath,title)
+        name_pdf = '%s/%s_%s.pdf' %(plotPath,title,variable)
+        name_root = '%s/%s_%s.root' %(plotPath,title,variable)
         c.Print(name_pdf)
         c.Print(name_root)
 
-makePlots()
+
+if __name__ == "__main__":   
+
+	fileList = glob.glob(treePath+'/*root')
+	models = [] #list with dictionary for the model paramters
+	mPhis = []
+	for f in fileList:
+		modelName = os.path.basename(f).replace('.root','').split('_')
+		model = {}
+		model['type'] = modelName[0]
+		model['mPhi'] = modelName[1]
+		model['mChi'] = modelName[2]		
+		model['g'] = modelName[3]
+		models.append(model)
+		mPhis.append(model['mPhi'])
+	
+	mPhis = list(set(mPhis))
+	jobs = []
+
+	#order the model list 
+	for mPhi in mPhis:
+		jobs = [item['type']+'_'+item['mPhi']+'_'+item['mChi']+'_'+item['g'] for item in models if item["mPhi"] == mPhi and item["g"] == 'g1']
+		legends = [item['g'] for item in models if item["mPhi"] == mPhi and item["g"] == 'g1']
+		#find all items that are not g=1
+		jobs =jobs + [item['type']+'_'+item['mPhi']+'_'+item['mChi']+'_'+item['g'] for item in models if item["mPhi"] == mPhi and item["g"] != 'g1']
+		legends = legends + [item['g'] for item in models if item["mPhi"] == mPhi and item["g"] != 'g1']
+		print jobs
+		print legends
+		makePlots(jobs, mPhi, legends)
