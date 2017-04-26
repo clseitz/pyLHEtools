@@ -17,13 +17,13 @@ plotPath = './'
 
 
 #selection
-treeCut = 'PdgID==9100000'
-#treeCut = 'ID==6 || ID==-6'
+#treeCut = 'PdgID==9100000'
+treeCut = 'PdgID==6 || PdgID==-6'
 
 treeVar = 'Pt'
-xTitle = 'Mediator p_{T} (GeV)'
+xTitle = 'Top quark p_{T} (GeV)'
 yTitle = 'Normalized events'
-colors = [2,8,4,ROOT.kMagenta+2]
+colors = [2,8,4,ROOT.kMagenta+2, ROOT.kBlue]
 num = 0
 
 
@@ -194,7 +194,7 @@ def makePlots(jobs, variable, legends):
 	baseline.SetTitle("")   
 	baseline.Sumw2()        
 	baseline.GetXaxis().SetTitle(xTitle)        
-	baseline.GetYaxis().SetTitle("g = x / g = 2")        
+	baseline.GetYaxis().SetTitle("g = x / g = 1")        
 	baseline.GetYaxis().SetNdivisions(503)        
 	
 	baseline.GetXaxis().SetLabelFont(42);        
@@ -227,6 +227,7 @@ if __name__ == "__main__":
 	fileList = glob.glob(treePath+'/*root')
 	models = [] #list with dictionary for the model paramters
 	mPhis = []
+	gs = []
 	for f in fileList:
 		modelName = os.path.basename(f).replace('.root','').split('_')
 		model = {}
@@ -236,8 +237,10 @@ if __name__ == "__main__":
 		model['g'] = modelName[3]
 		models.append(model)
 		mPhis.append(model['mPhi'])
+		gs.append(model['g'])
 	
 	mPhis = list(set(mPhis))
+	gs = list(set(gs))
 	jobs = []
 
 	#order the model list 
@@ -250,3 +253,12 @@ if __name__ == "__main__":
 		print jobs
 		print legends
 		makePlots(jobs, mPhi, legends)
+	
+	#for now just make one plot for coupling g1
+	jobs = [item['type']+'_'+item['mPhi']+'_'+item['mChi']+'_'+item['g'] for item in models if  item["g"] == 'g1' and item["mPhi"] == 'Mphi10']
+	legends = [item['mPhi'] for item in models if  item["g"] == 'g1' and item["mPhi"] == 'Mphi10']
+	jobs =  jobs + [item['type']+'_'+item['mPhi']+'_'+item['mChi']+'_'+item['g'] for item in models if  item["g"] == 'g1' and item["mPhi"] != 'Mphi10']
+	legends = legends + [item['mPhi'] for item in models if  item["g"] == 'g1' and item["mPhi"] != 'Mphi10']
+	print jobs
+	print legends
+	makePlots(jobs, 'g1', legends)
