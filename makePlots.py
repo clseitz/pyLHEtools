@@ -1,12 +1,12 @@
 import ROOT 
 ROOT.gROOT.SetBatch() 
 import glob, os
-
+import math
 title = 'Pt'
 xMin = 0
 xMax = 700
 nBins = 10
-treePath = '/nfs/dust/cms/user/clseitz/DarkMatterMC/LHERootFiles/rootFiles'
+treePath = 'rootFiles/'
 histoPath= './'
 
 treeName = 'events'
@@ -17,11 +17,11 @@ plotPath = './'
 
 
 #selection
-#treeCut = 'PdgID==9100000'
-treeCut = 'PdgID==6 || PdgID==-6'
+treeCut = 'PdgID==800'
+#treeCut = 'PdgID==6 || PdgID==-6'
 
 treeVar = 'Pt'
-xTitle = 'Top quark p_{T} (GeV)'
+xTitle = 'Mediator p_{T} (GeV)'
 yTitle = 'Normalized events'
 colors = [2,8,4,ROOT.kMagenta+2, ROOT.kBlue]
 num = 0
@@ -54,7 +54,7 @@ def getHisto(job):
     return histoCount
 
 
-def getHistoFromTree(job):
+def getHistoFromTree(job, includeOverflow = True):
 	global num
 
         hTree = ROOT.TH1F(job,job,nBins,xMin,xMax)
@@ -65,11 +65,22 @@ def getHistoFromTree(job):
 	hTree.Sumw2()
 	hTree.SetDirectory(0)
 	hTree.SetTitle(job)
-        nEvents = hTree.Integral()
 
+
+
+	if includeOverflow:
+		nbins = hTree.GetNbinsX()
+		overflow = hTree.GetBinContent(nbins+1)
+		overflowE = hTree.GetBinError(nbins+1)
+		lastbinContent = hTree.GetBinContent(nbins)
+		lastbinContentE = hTree.GetBinError(nbins)
+		hTree.SetBinContent(nbins, overflow+lastbinContent)
+		hTree.SetBinError(nbins, math.sqrt(overflowE*overflowE+lastbinContentE*lastbinContentE))
+        nEvents = hTree.Integral()
         if nEvents != 0:
             hTree.Scale(1/nEvents)
 	    num = num+1
+
 	return hTree
             
 def makePlots(jobs, variable, legends):
