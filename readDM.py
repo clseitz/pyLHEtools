@@ -24,7 +24,7 @@ if __name__ == '__main__':
     
         
     myLHEfile = LHEfile(finName)
-    myLHEfile.setMax(10000)
+    myLHEfile.setMax(-1)
 
     eventsReadIn = myLHEfile.readEvents()
 
@@ -53,18 +53,21 @@ if __name__ == '__main__':
     t.Branch("Py",Py,"Py[nPart]/F")
     t.Branch("Pz",Pz,"Pz[nPart]/F")
     t.Branch("Pt",Pt,"Pt[nPart]/F")
-    t.Branch("M",Pt,"M[nPart]/F")
+    t.Branch("M",M,"M[nPart]/F")
     t.Branch("Eta",Eta,"Eta[nPart]/F")
     t.Branch("Phi",Phi,"Phi[nPart]/F")
 
     vect = rt.TLorentzVector(0,0,0,0)
+    DM_1 = rt.TLorentzVector(0,0,0,0)
+    DM_2 = rt.TLorentzVector(0,0,0,0)
+    MED = rt.TLorentzVector(0,0,0,0)
 
     for oneEvent in eventsReadIn:
 
         myLHEevent = LHEevent()
         myLHEevent.fillEvent(oneEvent)
         w = myLHEevent.Weights
-        nPart[0] = int(len(myLHEevent.Particles))
+        nPart[0] = int(len(myLHEevent.Particles)+1)
         np = int(len(myLHEevent.Particles))
         for i,p  in enumerate(myLHEevent.Particles):
 
@@ -77,17 +80,39 @@ if __name__ == '__main__':
             vect.SetPxPyPzE(Px[i],Py[i],Pz[i],E[i])
             Pt[i] = vect.Pt()
             M[i] = vect.M()
- 
+
             Eta[i] = -999
             Phi[i] = -999
             if vect.Pt() > 0:
                 Eta[i] = vect.Eta()
                 Phi[i] = vect.Phi()
                 
+            if PdgID[i] == 9100022: 
+                DM_1.SetPxPyPzE(Px[i],Py[i],Pz[i],E[i])
+#                print 'setting DM_1 ', DM_1
+            if PdgID[i] == -9100022: 
+                DM_2.SetPxPyPzE(Px[i],Py[i],Pz[i],E[i])
+#                print 'setting DM_2 ', DM_2
+
+        MED = DM_1 + DM_2
+#        print 'setting MED Pt', MED.Pt()
+        
+        len(myLHEevent.Particles)
+#        print len(myLHEevent.Particles)
+        nExtra = len(myLHEevent.Particles)
+        PdgID[nExtra] = 800
+        E[nExtra] = MED.E()
+        Px[nExtra] = MED.Px()
+        Py[nExtra] = MED.Py()
+        Pz[nExtra] = MED.Pz()
+        Pt[nExtra] = MED.Pt()
+        M[nExtra] = MED.M()
+        Eta[nExtra] = -999
+        Phi[nExtra] = -999
+        if MED.Pt() > 0:
+            Eta[nExtra] = MED.Eta()
+            Phi[nExtra] = MED.Phi()
         t.Fill()
-
-
-            
 
         del oneEvent, myLHEevent
     print "creating output root file", foutName
