@@ -22,16 +22,23 @@ if __name__ == '__main__':
 
     finName = ""
     foutName = ""
+    outfolder = "output"
     if len(sys.argv) == 2:                                                                                                                               
         finName = sys.argv[1]
-        foutName = os.path.basename(finName).replace('.lhe','.root').replace("_Pythia8_","_Pythia8.chunk")
+        foutName = outfolder+ '/' + os.path.basename(finName).replace('.lhe','.root').replace("_Pythia8_","_Pythia8.chunk").replace("GEN","TREE") 
+        print "using default folder", outfolder, "for output"
     elif len(sys.argv) == 3:
         finName = sys.argv[1]
-        foutName = sys.argv[2]
+        outfolder = sys.argv[2]
+        foutName = outfolder+ '/' + os.path.basename(finName).replace('.lhe','.root').replace("_Pythia8_","_Pythia8.chunk").replace("GEN","TREE") 
+        print "using folder", outfolder, "for output"
     elif len(sys.argv) < 2:
         print "No input file given"
         exit(0)
 
+
+    try: os.stat(outfolder) 
+    except: os.mkdir(outfolder)
     # open file (you can use 'edmFileUtil -d /store/whatever.root' to get the physical file name)
     events = Events(finName)
 
