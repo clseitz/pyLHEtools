@@ -8,7 +8,6 @@ mScalar = {1: [75, 125, 150],
           20: [50, 75, 100, 125, 150, 200],
           30: [50, 75, 100, 125, 150, 200]}
 
-mScalar = {1: [75]}
 
 mPseudo = {1: [75, 125, 150, 250],
            10: [75, 125, 150, 200, 250],
@@ -79,7 +78,7 @@ if __name__ == "__main__":
             cmd = "mv "+ job + " output_"+str(seed)+"/."
             print cmd
             os.system(cmd)
-            cmd = "bsub -q 2nw -e output_" +str(seed)+ "/logs/" + job.replace('.sh','_STDOUT.txt') + " -o output_" +str(seed) + "/logs/" + job.replace('.sh','_ERR.txt') + " batchRunner.sh "  + "output_" +str(seed)+"/"+job
+            cmd = "bsub -q 2nw -o output_" +str(seed)+ "/logs/" + job.replace('.sh','_STDOUT.txt') + " -e output_" +str(seed) + "/logs/" + job.replace('.sh','_ERR.txt') + " batchRunner.sh "  + "output_" +str(seed)+"/"+job
             print cmd
             os.system(cmd)
 
