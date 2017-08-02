@@ -4,17 +4,18 @@ from commands import getoutput
 import re
 
 #locatin /nfs/dust/cms/user/clseitz/DarkMatterMC/LHE_Grid_Scalar_Jul25/DMScalar_ttbar01j_Mphi100_Mchi20_g1_44965/Events/run_01/
-def createJobs(f , jobs, i, EventsPerJob, outfolder):
+def createJobs(f , jobs, i, EventsPerJob, outfolder, batchSystem):
     cmd = 'cmsRun Hadronizer_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder + '\n'
     print cmd
     jobs.write(cmd)
     return 1
 
-def submitJobs(jobList, nchunks):
+def submitJobs(jobList, nchunks, outfolder):
     print 'Reading joblist'
     jobListName = jobList
     print jobList
-    subCmd = 'qsub -t 1-%s -o logs nafbatch_runner_GEN.sh %s' %(nchunks,jobListName)
+#    subCmd = 'qsub -t 1-%s -o logs nafbatch_runner_GEN.sh %s' %(nchunks,jobListName)
+    subCmd = 'qsub -t 1-%s -o %s/logs/ ../scripts/%s %s' %(nchunks,outfolder,batchSystem,jobListName)
     print 'Going to submit', nchunks, 'jobs with', subCmd
     os.system(subCmd)
 
@@ -26,7 +27,12 @@ def getNEvents(f):
 if __name__ == "__main__":
 
     outfolder = "Output"
-    ## remove '-b' option
+
+    #should probably rewrite with option parser
+    batchSystem = 'psibatch_runner.sh'
+    if '-naf' in sys.argv:  
+        sys.argv.remove('-naf')                                                                                                                        
+        batchSystem = 'nafbatch_runner.sh'
     if len(sys.argv) > 1:
         pattern = sys.argv[1]
         print 'Location of input LHe files', pattern
@@ -42,8 +48,8 @@ if __name__ == "__main__":
     try: os.stat(outfolder) 
     except: os.mkdir(outfolder)
 
-    try: os.stat(outfolder+'/logs') 
-    except: os.mkdir(outfolder+'/logs')
+    try: os.stat(outfolder+'/logs/') 
+    except: os.mkdir(outfolder+'/logs/')
     
 #    pattern = "datacardsABCD_2p1bins_fullscan2"
     filelist = glob.glob(pattern+'/DM*/*/*/'+'*.lhe')
@@ -58,13 +64,14 @@ if __name__ == "__main__":
         
         for i in range(0, nJobs):
             print i
-            createJobs(f,jobs,i,EventsPerJob, outfolder)
+            createJobs(f,jobs,i,EventsPerJob, outfolder, batchSystem)
             nChunks = nChunks+1
 
     jobs.close()
+    print "default submission is for PSI, if you want to run on the NAF ad -naf to input arguments"
     submit = raw_input("Do you also want to submit the jobs to the batch system? [y/n] ")
     if submit == 'y' or submit=='Y':
-        submitJobs(jobList,nChunks)
+        submitJobs(jobList,nChunks, outfolder)
     else:
         print "Not submitting jobs"
 
