@@ -23,7 +23,7 @@ def submitJobs(jobList, nchunks, outfolder, batchSystem):
 
 def getNEvents(f):
     nEvents = getoutput('grep "<event"  ' + f + ' | wc')
-    return int(nEvents.split(' ')[1])
+    return int(nEvents.split(' ')[2])
 if __name__ == "__main__":
 
     outfolder = "Output"
@@ -43,7 +43,8 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         outfolder = sys.argv[2]
         print 'Output goes here: ', outfolder                                                                                                                                    
-    else:                                                                                                                                                                                       print "Using default output folder: ", outfolder                                                                                                                            
+    else: 
+        print "Using default output folder: ", outfolder                                                                                                                            
 
     try: os.stat(outfolder) 
     except: os.mkdir(outfolder)
@@ -52,14 +53,14 @@ if __name__ == "__main__":
     except: os.mkdir(outfolder+'/logs/')
     
 #    pattern = "datacardsABCD_2p1bins_fullscan2"
-    filelist = glob.glob(pattern+'/DM*/*/*/'+'*.lhe')
+    filelist = glob.glob(pattern+'/ttDM*/*/*/'+'*.lhe')
     jobList = 'joblist.txt'
     jobs = open(jobList, 'w')
     nChunks = 0
     for f in filelist:
         print f
         nEvents = getNEvents(f)
-        EventsPerJob = 100000
+        EventsPerJob = min(nEvents,100000)
         nJobs = nEvents / EventsPerJob
         
         for i in range(0, nJobs):
