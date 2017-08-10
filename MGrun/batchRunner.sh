@@ -4,4 +4,5 @@ cd ${BASEDIR}/src/
 eval `scramv1 runtime -csh`
 ls ${BASEDIR}/src/pyLHEtools/MGrun/$1
 cd ${BASEDIR}/src/pyLHEtools/MGrun
-./../../MG5_aMC_v2_5_5/bin/mg5_aMC ${BASEDIR}/src/pyLHEtools/MGrun/$1
+#./../../MG5_aMC_v2_5_5/bin/mg5_aMC ${BASEDIR}/src/pyLHEtools/MGrun/$1
+./../../MG5_aMC_v2_5_5/bin/mg5_aMC $1

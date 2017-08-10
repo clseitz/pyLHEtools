@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python
 
 import sys, os
@@ -42,10 +43,12 @@ Coupling = [
      ]
     ]
 
-##################################
-## Add your new array to the list
-################################
-mAll = [MassScalar, MassPseudo, Coupling]
+
+Test = [
+    ['Test'],
+    [{'model': ['Scalar','Pseudo'],'mChi': [1,20], 'mPhi': [10,50], 'gq': [1], 'gDM' : [1]},
+]]
+mAll = [MassScalar, MassPseudo, Coupling, Test]
 ##################################
 
 #nEvents = 100000
@@ -56,7 +59,7 @@ rseed = datetime.datetime.now()
 seed = random.randint(1, 50000) 
 
 
-def createJobs(mSample, filein):
+def createJobs(mSample, filein, outlocation):
     jobs = []
     counter = 0
     for sample in mSample[1]:
@@ -82,6 +85,7 @@ def createJobs(mSample, filein):
                             newdata = newdata.replace("Varnevents",str(nEvents))
                             newdata = newdata.replace("VarIseed",str(seed))
                             newdata = newdata.replace("VarModel",str(model))
+                            newdata = newdata.replace("VarLocation",str(outlocation))
                             newdata = newdata.replace("VarGDMstr",str(gDM).replace('.','p'))
                             newdata = newdata.replace("VarGqstr",str(gq).replace('.','p'))
                             newdata = newdata.replace("VarGDM",str(gDM))
@@ -101,18 +105,18 @@ if __name__ == "__main__":
 
     inputs = [x[0][0] for x in mAll]
 
-    print inputs
+
     if len(sys.argv) > 1:
         model = sys.argv[1]
         if model in inputs:
             print "Running scenario: ", model
         else:
             print "No valid input provided"
-            print "Possible input scenarios are (check in code for more detail): MassScalar, MassPseudo, Coupling"
+            print "Possible input scenarios are (check in code for more detail): ", inputs
             exit(0)
     else:
         print "No input provided"
-        print "Possible input scenarios are (check in code for more detail): MassScalar, MassPseudo, Coupling"
+        print "Possible input scenarios are (check in code for more detail): ", inputs
         exit(0)
 
     for m in mAll:
@@ -125,9 +129,13 @@ if __name__ == "__main__":
     print '=============================='
 
     counter = 0
-    jobs = createJobs(mModel, filein)
+ #   outlocation = '/eos/cms/store/cmst3/group/susy/clseitz/DMsignal/' #doesn't seemm to work
+    outlocation = os.getcwd() +"/"
+    print outlocation
+    jobs = createJobs(mModel, filein, outlocation)
 
-    outFolder = 'output_' + str(model) + '_' + str(seed)
+
+    outFolder = outlocation+'output_' + str(model) + '_' + str(seed)
     try: os.stat(outFolder) 
     except: os.mkdir(outFolder)
 
