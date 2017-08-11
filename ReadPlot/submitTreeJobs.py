@@ -2,6 +2,12 @@
 import os, glob, sys
 #locatin /nfs/dust/cms/user/clseitz/DarkMatterMC/LHEfiles/
 
+cmsswR =  os.environ.get('CMSSW_BASE')
+cmsswR = cmsswR[cmsswR.find('CMSSW')+6:].split('_')[0]
+if int(cmsswR) < 8:
+    print "ATTENTION: To run this script setup CMSSW_8_0_25 at least"
+    exit(0)
+
 def createJobs(f , jobs, outfolder):
     cmd = 'python readFWliteGEN.py ' + f + ' ' + outfolder + '\n'
     print cmd
