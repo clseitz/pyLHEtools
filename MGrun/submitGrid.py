@@ -51,15 +51,15 @@ Test = [
 mAll = [MassScalar, MassPseudo, Coupling, Test]
 ##################################
 
-#nEvents = 100000
-nEvents = 10
+nEvents = 100000
+#nEvents = 10
 import time,datetime,random
 
 rseed = datetime.datetime.now()
 seed = random.randint(1, 50000) 
 
 
-def createJobs(mSample, filein, outlocation):
+def createJobs(mSample, filein, outlocation,scenario):
     jobs = []
     counter = 0
     for sample in mSample[1]:
@@ -85,6 +85,7 @@ def createJobs(mSample, filein, outlocation):
                             newdata = newdata.replace("Varnevents",str(nEvents))
                             newdata = newdata.replace("VarIseed",str(seed))
                             newdata = newdata.replace("VarModel",str(model))
+                            newdata = newdata.replace("VarScenario",str(scenario))
                             newdata = newdata.replace("VarLocation",str(outlocation))
                             newdata = newdata.replace("VarGDMstr",str(gDM).replace('.','p'))
                             newdata = newdata.replace("VarGqstr",str(gq).replace('.','p'))
@@ -100,16 +101,16 @@ def createJobs(mSample, filein, outlocation):
 if __name__ == "__main__":
     
     filein = "ttDMModel_MchiXMphiY_CMS_5F_gDMVarGDM_gqVarGq.sh"
-    model = 'Scalar'
+    scenario = 'Scalar'
     mModel = mAll[0]
 
     inputs = [x[0][0] for x in mAll]
 
 
     if len(sys.argv) > 1:
-        model = sys.argv[1]
-        if model in inputs:
-            print "Running scenario: ", model
+        scenario = sys.argv[1]
+        if scenario in inputs:
+            print "Running scenario: ", scenario
         else:
             print "No valid input provided"
             print "Possible input scenarios are (check in code for more detail): ", inputs
@@ -121,21 +122,21 @@ if __name__ == "__main__":
 
     for m in mAll:
         print m[0]
-        if model in m[0]:
+        if scenario in m[0]:
             mModel = m
 
     print "running the following setup"
-    print m
+    print mModel
     print '=============================='
 
     counter = 0
  #   outlocation = '/eos/cms/store/cmst3/group/susy/clseitz/DMsignal/' #doesn't seemm to work
     outlocation = os.getcwd() +"/"
     print outlocation
-    jobs = createJobs(mModel, filein, outlocation)
+    jobs = createJobs(mModel, filein, outlocation, scenario)
 
 
-    outFolder = outlocation+'output_' + str(model) + '_' + str(seed)
+    outFolder = outlocation+'output_' + str(scenario) + '_' + str(seed)
     try: os.stat(outFolder) 
     except: os.mkdir(outFolder)
 
