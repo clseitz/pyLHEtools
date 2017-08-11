@@ -8,11 +8,11 @@ def createJobs(f , jobs, outfolder):
     jobs.write(cmd)
     return 1
 
-def submitJobs(jobList, nchunks, batchSystem):
+def submitJobs(jobList, nchunks, batchSystem, outfolder):
     print 'Reading joblist'
     jobListName = jobList
     print jobList
-    subCmd = 'qsub -t 1-%s -o logs/ ../scripts/%s %s' %(nchunks, batchSystem,jobListName)
+    subCmd = 'qsub -t 1-%s -o %s/logs/ ../scripts/%s %s' %(nchunks,outfolder, batchSystem,jobListName)
     print 'Going to submit', nchunks, 'jobs with', subCmd
     os.system(subCmd)
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
   
     submit = raw_input("Do you also want to submit the jobs to the batch system? [y/n] ")
     if submit == 'y' or submit=='Y':
-        submitJobs(jobList,len(filelist), batchSystem)
+        submitJobs(jobList,len(filelist), batchSystem, outfolder)
     else:
         print "Not submitting jobs"
         
