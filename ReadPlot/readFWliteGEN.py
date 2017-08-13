@@ -47,9 +47,10 @@ if __name__ == '__main__':
 
     fout =  ROOT.TFile(foutName,"RECREATE") 
     t = ROOT.TTree( 'events', 'tree with events from GEN file' )
-    nPart =  array('i',[50])
+    nPart =  array('i',[60])
     np = 0
     PdgID = array('i',nPart[0]*[0])
+    Status = array('i',nPart[0]*[0])
     mIdx = array('i',nPart[0]*[0])
     E = array('f',nPart[0]*[0])
     Px = array('f',nPart[0]*[0])
@@ -63,6 +64,7 @@ if __name__ == '__main__':
     
     t.Branch("nPart",nPart,"nPart/I")
     t.Branch("PdgID",PdgID,"PdgID[nPart]/I")
+    t.Branch("Status",Status,"Status[nPart]/I")
     t.Branch("mIdx",mIdx,"mIdx[nPart]/I")
     t.Branch("E",E,"E[nPart]/F")
     t.Branch("Px",Px,"Px[nPart]/F")
@@ -92,15 +94,16 @@ if __name__ == '__main__':
             if debug:
                 if abs(p.pdgId()) ==6: print p.pdgId() ,p.status(), p.pt() #p.mother().pdgId(), p.px(), p.py(), p.pz(), p.energy()
         
-#            if p.status() > 22 and p.status() < 72: 
-            if p.status() > 23 and p.status() < 72: 
+#            if p.status() > 22 and p.status() < 72:
+            #keep the status 62 tops as well
+            if (p.status() > 23 and p.status() < 62) or ((p.status() > 62 and p.status() < 72)): 
             #clean up pythia garbage from 
             #https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/PhysicsTools/PatAlgos/python/slimming/prunedGenParticles_cfi.py
                 continue
             if abs(p.pdgId()) in GenToKeep and p.pt() > 5:
-                
                 i = i+1
                 PdgID[i] = p.pdgId()
+                Status[i] = p.status()
                 mIdx[i] = 0
                 E[i] = p.energy()
                 Px[i] = p.px()
@@ -142,6 +145,7 @@ if __name__ == '__main__':
         #clean stuff, not very cleverly done
         for n in range(0,len(PdgID)):
             PdgID[n] = 0
+            Status[n] = 0
             E[n] = 0
             Px[n] = 0
             Py[n] = 0
