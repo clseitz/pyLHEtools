@@ -48,7 +48,23 @@ Test = [
     ['Test'],
     [{'model': ['Scalar','Pseudo'],'mChi': [1,20], 'mPhi': [10,50], 'gq': [1], 'gDM' : [1]},
 ]]
-mAll = [MassScalar, MassPseudo, Coupling, Test]
+
+AddMass = [
+    ['AddMass'],
+    [{'model': ['Scalar','Pseudo'],'mChi': [1], 'mPhi': [250,400, 450], 'gq': [1], 'gDM' : [1]},
+     {'model': ['Scalar','Pseudo'],'mChi': [20, 50], 'mPhi': [250, 400, 450, 500], 'gq': [1], 'gDM' : [1]}
+     ]]
+
+Diagonal = [
+    ['Diagonal'],
+    [{'model': ['Scalar','Pseudo'],'mChi': [25, 17, 12.5], 'mPhi': [50], 'gq': [1], 'gDM' : [1]},
+     {'model': ['Scalar','Pseudo'],'mChi': [50, 30, 20], 'mPhi': [100], 'gq': [1], 'gDM' : [1]},
+     {'model': ['Scalar','Pseudo'],'mChi': [100, 70], 'mPhi': [200], 'gq': [1], 'gDM' : [1]},
+     {'model': ['Scalar','Pseudo'],'mChi': [150, 100, 75], 'mPhi': [300], 'gq': [1], 'gDM' : [1]}
+     ]]
+
+
+mAll = [MassScalar, MassPseudo, Coupling, Test, AddMass, Diagonal]
 ##################################
 
 nEvents = 100000
