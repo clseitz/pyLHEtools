@@ -23,7 +23,8 @@ def submitJobs(jobList, nchunks, outfolder, batchSystem):
 
 def getNEvents(f):
     nEvents = getoutput('grep "<event"  ' + f + ' | wc')
-    return int(nEvents.split(' ')[2])
+    nEvents = list(set(nEvents.split(' ')))
+    return int(nEvents[1])
 if __name__ == "__main__":
 
     outfolder = "Output"
