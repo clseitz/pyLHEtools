@@ -4,8 +4,8 @@ from commands import getoutput
 import re
 
 #locatin /nfs/dust/cms/user/clseitz/DarkMatterMC/LHE_Grid_Scalar_Jul25/DMScalar_ttbar01j_Mphi100_Mchi20_g1_44965/Events/run_01/
-def createJobs(f , jobs, i, EventsPerJob, outfolder):
-    cmd = 'cmsRun Hadronizer_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder + '\n'
+def createJobs(f , jobs, i, EventsPerJob, outfolder, ttDilep):
+    cmd = 'cmsRun Hadronizer_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder +' ' + str(ttDilep) + '\n'
     print cmd
     jobs.write(cmd)
     return 1
@@ -47,6 +47,13 @@ if __name__ == "__main__":
     else: 
         print "Using default output folder: ", outfolder                                                                                                                            
 
+    ttDilep = False
+    if len(sys.argv) > 3:
+        ttDilep = sys.argv[3]
+        print 'Running only ttDilep '                                                                                                                                    
+    else: 
+        print "Running all ttbar decay modes ", outfolder                                                                                                                            
+
     try: os.stat(outfolder) 
     except: os.mkdir(outfolder)
 
@@ -66,7 +73,7 @@ if __name__ == "__main__":
         
         for i in range(0, nJobs):
             print i
-            createJobs(f,jobs,i,EventsPerJob, outfolder)
+            createJobs(f,jobs,i,EventsPerJob, outfolder, ttDilep)
             nChunks = nChunks+1
 
     jobs.close()
