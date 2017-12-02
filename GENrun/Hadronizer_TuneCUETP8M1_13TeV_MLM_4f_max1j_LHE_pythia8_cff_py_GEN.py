@@ -13,7 +13,6 @@ if len(sys.argv) > 5:
 	RunEvents = int(sys.argv[3])
 	JobNumber = int(sys.argv[4])
 	outfolder = sys.argv[5]
-	ttDilep = sys.argv[6]
 	start = fin.find('ttDM')
 	stop=fin.find('/Eve')
 	#fout = (os.path.split(fin)[1]).replace('.lhe','_Pythia8_'+str(JobNumber)+'_GEN.root')
