@@ -63,8 +63,126 @@ Diagonal = [
      {'model': ['Scalar','Pseudo'],'mChi': [150, 100, 75], 'mPhi': [300], 'gq': [1], 'gDM' : [1]}
      ]]
 
+AddMass2 = [
+    ['AddMass2'],
+    [
+        {'model': ['Pseudo'],'mChi': [10], 'mPhi': [40], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mChi': [15], 'mPhi': [40, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mChi': [20], 'mPhi': [60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mChi': [30], 'mPhi': [65, 90], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mChi': [35], 'mPhi': [60, 90, 130], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mChi': [45], 'mPhi': [130], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mChi': [10], 'mPhi': [30, 40, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mChi': [15], 'mPhi': [35, 40, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mChi': [20], 'mPhi': [30, 45, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mChi': [35], 'mPhi': [125, 130], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mChi': [40], 'mPhi': [125, 130], 'gq': [1], 'gDM' : [1]}
 
-mAll = [MassScalar, MassPseudo, Coupling, Test, AddMass, Diagonal]
+        ]
+    ]
+
+
+AddMass3Scalar = [
+    ['AddMass3Scalar'],
+    [
+        {'model': ['Scalar'],'mPhi': [20], 'mChi': [7, 9], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [30], 'mChi': [14], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [50], 'mChi': [15], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [60], 'mChi': [1,25,29], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [70], 'mChi': [1,25,30, 34], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [80], 'mChi': [1,25,30, 35, 39], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [90], 'mChi': [1,30,35, 40, 44], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [100], 'mChi': [1,35,40], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [110], 'mChi': [1,40,45], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [120], 'mChi': [1,40,45,50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [130], 'mChi': [1,50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [140], 'mChi': [1,50], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+AddMass3Pseudo = [
+    ['AddMass3Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [20], 'mChi': [7, 9], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [30], 'mChi': [14], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [50], 'mChi': [15], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [60], 'mChi': [1,25,29], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [70], 'mChi': [1,25,30, 34], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [80], 'mChi': [1,25,30, 35, 39], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [90], 'mChi': [1,30,35, 40, 44], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [100], 'mChi': [1,35,40], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [110], 'mChi': [1,40,45], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [120], 'mChi': [1,40,45,50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [130], 'mChi': [1,50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [140], 'mChi': [1,50], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+AddMass4Pseudo = [
+    ['AddMass4Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [10], 'mChi': [4, 6, 8], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [20], 'mChi': [11, 15], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [30], 'mChi': [16, 20], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [40], 'mChi': [19, 21, 25], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [50], 'mChi': [24, 26], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [60], 'mChi': [31], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [70], 'mChi': [36, 40], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [80], 'mChi': [41, 45], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [90], 'mChi': [46, 50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [100], 'mChi': [45, 49, 51, 55], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [110], 'mChi': [50, 54, 56, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [120], 'mChi': [55, 59], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [130], 'mChi': [55, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [140], 'mChi': [55, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [175], 'mChi': [1, 70, 80], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [200], 'mChi': [1, 70, 80], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+
+AddMass4Scalar = [
+    ['AddMass4Scalar'],
+    [
+        {'model': ['Scalar'],'mPhi': [10], 'mChi': [4, 6, 8], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [20], 'mChi': [11, 15], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [30], 'mChi': [16, 20], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [40], 'mChi': [19, 21, 25], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [50], 'mChi': [24, 26], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [60], 'mChi': [31], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [70], 'mChi': [36, 40], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [80], 'mChi': [41, 45], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [90], 'mChi': [46, 50], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [100], 'mChi': [45, 49, 51, 55], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [110], 'mChi': [50, 54, 56, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [120], 'mChi': [55, 59], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [130], 'mChi': [55, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [140], 'mChi': [55, 60], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [175], 'mChi': [1, 70, 80], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [200], 'mChi': [1, 70, 80], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+
+AddMass5Pseudo = [
+    ['AddMass5Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [120], 'mChi': [61], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [130], 'mChi': [64,66], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [140], 'mChi': [65,69,71], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [150], 'mChi': [60,65,70,74,76], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [175], 'mChi': [85,87,88], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [200], 'mChi': [85,90,95,99,101], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [210], 'mChi': [1, 75, 85, 95, 100, 104, 106], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [220], 'mChi': [1, 75, 85, 95, 100, 105, 109,111], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+
+mAll = [MassScalar, MassPseudo, Coupling, Test, AddMass, Diagonal, AddMass2,AddMass3Scalar,AddMass3Pseudo, AddMass4Pseudo, AddMass4Scalar,AddMass5Pseudo]
 ##################################
 
 nEvents = 100000
@@ -171,7 +289,7 @@ if __name__ == "__main__":
     if submit == 'y' or submit=='Y':
         print "Submitting jobs"
         for job in jobs:    
-            cmd = "bsub -q 2nw -o " + outFolder+ "/logs/" + job.replace('.sh','_STDOUT.txt') + " -e "+outFolder+ "/logs/" + job.replace('.sh','_ERR.txt') + " batchRunner.sh "  + outFolder+"/cards/"+job
+            cmd = "bsub -q 2nd -o " + outFolder+ "/logs/" + job.replace('.sh','_STDOUT.txt') + " -e "+outFolder+ "/logs/" + job.replace('.sh','_ERR.txt') + " batchRunner.sh "  + outFolder+"/cards/"+job
             print cmd
             os.system(cmd)
 
