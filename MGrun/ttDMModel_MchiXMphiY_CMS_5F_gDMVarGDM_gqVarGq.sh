@@ -13,7 +13,7 @@ define p = p b  b~
 define j = j b  b~
 generate p p > t t~ chi chi~ @0
 add process  p p > t t~ chi chi~ j @1
-output VarLocation/output_VarModel_VarIseed/ttDMVarModel_MphiVarMphi_MchiVarMchi_gDMVarGDMstr_gqVarGqstr_VarIseed
+output VarLocation/output_VarScenario_VarIseed/ttDMVarModel_MphiVarMphi_MchiVarMchi_gDMVarGDMstr_gqVarGqstr_VarIseed
 launch
 0
 set Mphi VarMphi
