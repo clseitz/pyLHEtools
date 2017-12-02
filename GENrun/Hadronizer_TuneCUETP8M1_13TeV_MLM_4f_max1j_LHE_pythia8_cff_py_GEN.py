@@ -7,13 +7,14 @@ import FWCore.ParameterSet.Config as cms
 import os, sys
 process = cms.Process('GEN')
 
-
+ttDecay = ""
 #Get input file name from submit script
-if len(sys.argv) > 5:
+if len(sys.argv) > 6:
         fin = sys.argv[2]
 	RunEvents = int(sys.argv[3])
 	JobNumber = int(sys.argv[4])
 	outfolder = sys.argv[5]
+	ttDilep = sys.argv[6]
 	start = fin.find('ttDM')
 	stop=fin.find('/Eve')
 	#fout = (os.path.split(fin)[1]).replace('.lhe','_Pythia8_'+str(JobNumber)+'_GEN.root')
@@ -23,9 +24,14 @@ if len(sys.argv) > 5:
 	print '# producing outputfile', fout
 	print '# Runnning job ', str(JobNumber), 'with ', str(RunEvents),' events, skipping ', str(JobNumber*RunEvents) 
 
+	if ttDilep:
+		ttDecay = "'24:onMode = off','24:onIfAny = 11 12','24:onIfAny = 13 14','24:onIfAny = 15 16',"
+	
 else:
         print "No input file given"
 	exit(0)
+
+
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -136,7 +142,13 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'Check:epTolErr = 0.0003', 
             '9100000:new  = MED MED 3 0 0 X_MMed_X 0 0 0 99999', 
             '9100022:new  = DM  DM  2 0 0 X_MFM_X  0 0 0 99999', 
-            '9100022:mayDecay = off'),
+            '9100022:mayDecay = off',
+	     ttDecay
+#	    '24:onMode = off',
+#            '24:onIfAny = 11 12',
+#            '24:onIfAny = 13 14',
+#	    '24:onIfAny = 15 16',
+					),
         parameterSets = cms.vstring('pythia8CommonSettings', 
             'pythia8CUEP8M1Settings', 
             'processParameters')
