@@ -5,7 +5,9 @@ import re
 
 #locatin /nfs/dust/cms/user/clseitz/DarkMatterMC/LHE_Grid_Scalar_Jul25/DMScalar_ttbar01j_Mphi100_Mchi20_g1_44965/Events/run_01/
 def createJobs(f , jobs, i, EventsPerJob, outfolder, ttDilep):
-    cmd = 'cmsRun Hadronizer_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder +' ' + str(ttDilep) + '\n'
+    cmd = 'cmsRun Hadronizer_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder + '\n'
+    if ttDilep:
+        cmd = 'cmsRun Hadronizer_TTDilep_TuneCUETP8M1_13TeV_MLM_4f_max1j_LHE_pythia8_cff_py_GEN.py ' + f + ' '+ str(EventsPerJob) + ' ' + str(i) + ' ' + outfolder + '\n'
     print cmd
     jobs.write(cmd)
     return 1
@@ -49,10 +51,10 @@ if __name__ == "__main__":
 
     ttDilep = False
     if len(sys.argv) > 3:
-        ttDilep = sys.argv[3]
-        print 'Running only ttDilep '                                                                                                                                    
-    else: 
-        print "Running all ttbar decay modes ", outfolder                                                                                                                            
+        if "Dilep" in sys.argv[3]:
+            ttDilep = True
+
+    if ttDilep: print "running dilepton events only"
 
     try: os.stat(outfolder) 
     except: os.mkdir(outfolder)
@@ -62,7 +64,11 @@ if __name__ == "__main__":
     
 #    pattern = "datacardsABCD_2p1bins_fullscan2"
     filelist = glob.glob(pattern+'/ttDM*/*/*/'+'*.lhe')
+
     jobList = 'joblist.txt'
+    if ttDilep:
+        jobList = 'joblist_dilep.txt'
+
     jobs = open(jobList, 'w')
     nChunks = 0
     for f in filelist:
