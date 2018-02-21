@@ -182,11 +182,115 @@ AddMass5Pseudo = [
         ]
     ]
 
-mAll = [MassScalar, MassPseudo, Coupling, Test, AddMass, Diagonal, AddMass2,AddMass3Scalar,AddMass3Pseudo, AddMass4Pseudo, AddMass4Scalar,AddMass5Pseudo]
+AddMass6Pseudo = [
+    ['AddMass6Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [160], 'mChi': [1,55,65,75,79,81], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [170], 'mChi': [1,60,70,80,84,86], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [180], 'mChi': [1,70,80,85,89,91], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [190], 'mChi': [1,65,75,85,90,94,96], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+
+AddMass7Scalar = [
+    ['AddMass7Scalar'],
+    [
+        {'model': ['Scalar'],'mPhi': [230], 'mChi': [1,90,110,114,116], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [240], 'mChi': [1,80,100,115,119,121], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [250], 'mChi': [85, 105, 120, 124, 126], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [260], 'mChi': [1, 90, 110, 125, 129, 131], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [270], 'mChi': [1, 90, 110, 130, 134, 136], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [280], 'mChi': [1, 95, 115, 135, 139, 141], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [290], 'mChi': [1, 100, 120, 140, 144, 146], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [300], 'mChi': [105, 125, 145, 149, 151], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+
+AddMass7Pseudo = [
+    ['AddMass7Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [210], 'mChi': [1,74,85], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [220], 'mChi': [1,75,85,90], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [230], 'mChi': [1,90,95], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [240], 'mChi': [1,80,100], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [250], 'mChi': [1,85,100], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [260], 'mChi': [1,90,105], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [270], 'mChi': [1,90,110], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+
+AddMass8Pseudo = [
+    ['AddMass8Pseudo'],
+    [
+        {'model': ['Pseudo'],'mPhi': [230], 'mChi': [1,90,110,114,116], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [240], 'mChi': [1,80,100,115,119,121], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [250], 'mChi': [85, 105, 120, 124, 126], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [260], 'mChi': [1, 90, 110, 125, 129, 131], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [270], 'mChi': [1, 90, 110, 130, 134, 136], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [280], 'mChi': [1, 95, 115, 135, 139, 141], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [290], 'mChi': [1, 100, 120, 140, 144, 146], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Pseudo'],'mPhi': [300], 'mChi': [105, 125, 145, 149, 151], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+AddMass9Scalar = [
+    ['AddMass9Scalar'],
+    [
+        {'model': ['Scalar'],'mPhi': [210], 'mChi': [1,74,85], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [220], 'mChi': [1,75,85,90], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [230], 'mChi': [1,90,95], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [240], 'mChi': [1,80,100], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [250], 'mChi': [1,85,100], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [260], 'mChi': [1,90,105], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [270], 'mChi': [1,90,110], 'gq': [1], 'gDM' : [1]},
+        ]
+    ]
+
+AddMass10 = [
+    ['AddMass10'],
+    [
+        {'model': ['Pseudo'],'mPhi': [30], 'mChi': [1,11], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [180], 'mChi': [1, 65, 75, 85, 89, 91], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [190], 'mChi': [1, 70, 80, 90, 94, 96], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [200], 'mChi': [90, 95, 99], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [210], 'mChi': [95, 100, 104], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [220], 'mChi': [100, 105, 109], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [230], 'mChi': [105, 110, 114], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [240], 'mChi': [110, 115, 119], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [250], 'mChi': [110, 120, 124], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [260], 'mChi': [115, 125, 129], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+
+AddMass11_width = [
+    ['AddMass11_width'],
+    [
+        {'model': ['Scalar','Pseudo'],'mPhi': [30], 'mChi': [14.4,14.5,14.6,14.7,14.8,14.9,15.1,15.2,15.3,15.6,20], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar','Pseudo'],'mPhi': [150], 'mChi': [74.6,74.7,74.8,74.9,75.1,75.2,75.3,80], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+AddMass12_scalar = [
+    ['AddMass12_scalar'],
+    [
+        {'model': ['Scalar'],'mPhi': [130], 'mChi': [64, 66], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [140], 'mChi': [65, 69, 71], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [150], 'mChi': [70, 74, 76], 'gq': [1], 'gDM' : [1]},
+        {'model': ['Scalar'],'mPhi': [175], 'mChi': [86, 88], 'gq': [1], 'gDM' : [1]},
+
+        ]
+    ]
+
+
+
+mAll = [MassScalar, MassPseudo, Coupling, Test, AddMass, Diagonal, 
+        AddMass2,AddMass3Scalar,AddMass3Pseudo, AddMass4Pseudo, AddMass4Scalar,AddMass5Pseudo,
+        AddMass6Pseudo,AddMass7Scalar,AddMass7Pseudo,AddMass8Pseudo,AddMass9Scalar,AddMass10, AddMass11_width, AddMass12_scalar]
 ##################################
 
 nEvents = 100000
-#nEvents = 10
 import time,datetime,random
 
 rseed = datetime.datetime.now()
@@ -208,7 +312,7 @@ def createJobs(mSample, filein, outlocation,scenario):
                     for gq in gqs:
                         for gDM in gDMs:
                             print "model", model,"mChi",mChi,"mPhi",mPhi, "gq", gq,"gDM", gDM
-                            fileout = filein.replace("X",str(mChi)).replace("Y",str(mPhi)+"_MG").replace('Model',model).replace('VarGDM',str(gDM).replace('.','p')).replace('VarGq',str(gq).replace('.','p'))
+                            fileout = filein.replace("X",str(mChi).replace('.','p')).replace("Y",str(mPhi).replace('.','p')+"_MG").replace('Model',model).replace('VarGDM',str(gDM).replace('.','p')).replace('VarGq',str(gq).replace('.','p'))
                             
                             f = open(filein,'r')
                             filedata = f.read()
